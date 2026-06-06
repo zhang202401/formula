@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 650" width="960" height="650">
+  <style>
+    text { font-family: "Courier New", "Lucida Console", "Microsoft YaHei", "SimHei", monospace; }
+  </style>
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#112240" stroke-width="0.5"/>
+    </pattern>
+    <marker id="arrow-cyan" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#00b4d8"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#06d6a0"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ef476f"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f77f00"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#48cae4"/>
+    </marker>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00b4d8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="650" fill="#0a1628"/>
+  <rect width="960" height="650" fill="url(#grid)" opacity="0.6"/>
+
+  <!-- Connecting lines (drawn behind nodes) -->
+
+  <!-- Root → left branch -->
+  <polyline points="480,115 480,135 320,135 320,160"
+    stroke="#00b4d8" stroke-width="1.2" fill="none" marker-end="url(#arrow-cyan)" opacity="0.8"/>
+  <!-- Root → right branch -->
+  <polyline points="480,115 480,135 640,135 640,160"
+    stroke="#00b4d8" stroke-width="1.2" fill="none" marker-end="url(#arrow-cyan)" opacity="0.8"/>
+
+  <!-- 判断b → 重合 -->
+  <polyline points="320,225 320,240 200,240 200,260"
+    stroke="#06d6a0" stroke-width="1.2" fill="none" marker-end="url(#arrow-green)" opacity="0.7"/>
+  <!-- 判断b → 平行 -->
+  <polyline points="320,225 320,240 440,240 440,260"
+    stroke="#ef476f" stroke-width="1.2" fill="none" marker-end="url(#arrow-red)" opacity="0.7"/>
+
+  <!-- 相交 → 判断k₁k₂ -->
+  <line x1="640" y1="205" x2="640" y2="240"
+    stroke="#f77f00" stroke-width="1.2" fill="none" marker-end="url(#arrow-orange)" opacity="0.8"/>
+
+  <!-- 判断k₁k₂ → 垂直相交 -->
+  <polyline points="640,305 640,320 540,320 540,340"
+    stroke="#00b4d8" stroke-width="1.2" fill="none" marker-end="url(#arrow-cyan)" opacity="0.7"/>
+  <!-- 判断k₁k₂ → 相交不垂直 -->
+  <polyline points="640,305 640,320 740,320 740,340"
+    stroke="#48cae4" stroke-width="1.2" fill="none" marker-end="url(#arrow-muted)" opacity="0.7"/>
+
+  <!-- Root Node: 判断k -->
+  <g filter="url(#glow)">
+    <polygon points="480,45 550,90 480,135 410,90"
+      fill="#0d1f3c" stroke="#00b4d8" stroke-width="2" opacity="0.95"/>
+  </g>
+  <text x="480" y="88" text-anchor="middle" fill="#caf0f8" font-size="15" font-weight="700" letter-spacing="0.03em">判断 k</text>
+  <text x="480" y="105" text-anchor="middle" fill="#48cae4" font-size="10" opacity="0.8">k₁ 与 k₂ 是否相等？</text>
+
+  <!-- Branch Labels -->
+  <text x="280" y="132" text-anchor="end" fill="#00b4d8" font-size="12" font-weight="600" letter-spacing="0.02em">k₁ = k₂</text>
+  <text x="680" y="132" text-anchor="start" fill="#00b4d8" font-size="12" font-weight="600" letter-spacing="0.02em">k₁ ≠ k₂</text>
+
+  <!-- Left Branch: 判断b -->
+  <polygon points="320,160 390,195 320,230 250,195"
+    fill="#0d1f3c" stroke="#00b4d8" stroke-width="1.5" opacity="0.95"/>
+  <text x="320" y="193" text-anchor="middle" fill="#caf0f8" font-size="14" font-weight="600">判断 b</text>
+  <text x="320" y="209" text-anchor="middle" fill="#48cae4" font-size="10" opacity="0.8">截距是否相等？</text>
+
+  <text x="175" y="258" text-anchor="end" fill="#06d6a0" font-size="11" font-weight="600">b₁ = b₂</text>
+  <text x="465" y="258" text-anchor="start" fill="#ef476f" font-size="11" font-weight="600">b₁ ≠ b₂</text>
+
+  <!-- 重合 -->
+  <g>
+    <rect x="140" y="275" width="120" height="44" rx="3" ry="3"
+      fill="#0d1f3c" stroke="#06d6a0" stroke-width="2" opacity="0.95"/>
+    <text x="200" y="301" text-anchor="middle" fill="#06d6a0" font-size="15" font-weight="700" letter-spacing="0.03em">重 合</text>
+  </g>
+  <text x="200" y="336" text-anchor="middle" fill="#48cae4" font-size="9" opacity="0.7">A₁/A₂ = B₁/B₂ = C₁/C₂</text>
+
+  <!-- 平行 -->
+  <g>
+    <rect x="380" y="275" width="120" height="44" rx="3" ry="3"
+      fill="#0d1f3c" stroke="#ef476f" stroke-width="2" opacity="0.95"/>
+    <text x="440" y="301" text-anchor="middle" fill="#ef476f" font-size="15" font-weight="700" letter-spacing="0.03em">平 行</text>
+  </g>
+  <text x="440" y="336" text-anchor="middle" fill="#48cae4" font-size="9" opacity="0.7">A₁B₂ = A₂B₁ 且 B₁C₂ ≠ B₂C₁</text>
+
+  <!-- 相交 -->
+  <g filter="url(#glow)">
+    <rect x="580" y="166" width="120" height="40" rx="3" ry="3"
+      fill="#0d1f3c" stroke="#f77f00" stroke-width="2" opacity="0.95"/>
+  </g>
+  <text x="640" y="191" text-anchor="middle" fill="#f77f00" font-size="15" font-weight="700" letter-spacing="0.03em">相 交</text>
+
+  <!-- 判断k₁k₂ -->
+  <polygon points="640,245 710,280 640,315 570,280"
+    fill="#0d1f3c" stroke="#00b4d8" stroke-width="1.5" opacity="0.95"/>
+  <text x="640" y="278" text-anchor="middle" fill="#caf0f8" font-size="13" font-weight="600">判断 k₁·k₂</text>
+  <text x="640" y="294" text-anchor="middle" fill="#48cae4" font-size="10" opacity="0.8">乘积是否等于 −1？</text>
+
+  <text x="515" y="338" text-anchor="end" fill="#00b4d8" font-size="11" font-weight="600">k₁·k₂ = −1</text>
+  <text x="765" y="338" text-anchor="start" fill="#48cae4" font-size="11" font-weight="600">k₁·k₂ ≠ −1</text>
+
+  <!-- 垂直相交 -->
+  <g>
+    <rect x="480" y="355" width="120" height="44" rx="3" ry="3"
+      fill="#0d1f3c" stroke="#00b4d8" stroke-width="2" opacity="0.95"/>
+    <text x="540" y="381" text-anchor="middle" fill="#00b4d8" font-size="14" font-weight="700" letter-spacing="0.03em">垂直相交</text>
+  </g>
+  <text x="540" y="416" text-anchor="middle" fill="#48cae4" font-size="9" opacity="0.7">A₁A₂ + B₁B₂ = 0</text>
+
+  <!-- 相交不垂直 -->
+  <g>
+    <rect x="680" y="355" width="120" height="44" rx="3" ry="3"
+      fill="#0d1f3c" stroke="#48cae4" stroke-width="1.5" opacity="0.95"/>
+    <text x="740" y="381" text-anchor="middle" fill="#48cae4" font-size="14" font-weight="700" letter-spacing="0.03em">相交不垂直</text>
+  </g>
+  <text x="740" y="416" text-anchor="middle" fill="#48cae4" font-size="9" opacity="0.7">有唯一交点（斜交）</text>
+
+  <!-- Title Block -->
+  <g>
+    <rect x="700" y="560" width="240" height="70" rx="2" ry="2"
+      fill="#0d1f3c" stroke="#00b4d8" stroke-width="1" opacity="0.9"/>
+    <line x1="700" y1="578" x2="940" y2="578" stroke="#00b4d8" stroke-width="0.5"/>
+    <text x="820" y="575" text-anchor="middle" fill="#00b4d8" font-size="10" letter-spacing="0.1em">中职数学 · 解析几何</text>
+    <text x="820" y="616" text-anchor="middle" fill="#caf0f8" font-size="14" font-weight="700" letter-spacing="0.05em">两直线位置关系</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(30, 560)">
+    <rect x="0" y="0" width="180" height="70" rx="2" ry="2"
+      fill="#0d1f3c" stroke="#00b4d8" stroke-width="0.8" opacity="0.85"/>
+    <text x="90" y="18" text-anchor="middle" fill="#00b4d8" font-size="9" letter-spacing="0.08em">图 例</text>
+    <line x1="10" y1="24" x2="50" y2="24" stroke="#06d6a0" stroke-width="1.5"/>
+    <text x="56" y="27" fill="#caf0f8" font-size="9">条件分支</text>
+    <line x1="10" y1="40" x2="50" y2="40" stroke="#f77f00" stroke-width="1.5"/>
+    <text x="56" y="43" fill="#caf0f8" font-size="9">中间结论</text>
+    <rect x="10" y="48" width="16" height="12" rx="1" fill="none" stroke="#ef476f" stroke-width="1.2"/>
+    <text x="56" y="59" fill="#caf0f8" font-size="9">最终结论</text>
+  </g>
+</svg>

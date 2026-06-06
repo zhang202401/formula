@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>直线与圆 · 公式要点 | 中职数学</title>
+  <meta name="description" content="中职数学《直线与圆》核心公式速查——中点坐标、倾斜角与斜率、直线方程、距离公式、圆的方程、直线与圆位置关系、切线">
+
+  <!-- ===== Google Fonts ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <!-- ===== Tailwind ===== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { heading: ['Outfit', 'sans-serif'], body: ['DM Sans', 'sans-serif'] },
+          colors: { ink: '#0F172A', steel: '#334155', muted: '#64748B', paper: '#F8F9FC', accent: '#2563EB', 'accent-light': '#DBEAFE', 'accent-dark': '#1D4ED8' },
+          animation: { 'fade-slide': 'fadeSlide 0.7s ease-out forwards', 'scale-in': 'scaleIn 0.5s ease-out forwards' },
+          keyframes: {
+            fadeSlide: { '0%': { opacity: '0', transform: 'translateY(24px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            scaleIn: { '0%': { opacity: '0', transform: 'scale(0.96)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- ===== KaTeX ===== -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'DM Sans', sans-serif; background: #F8F9FC; color: #0F172A; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; line-height: 1.25; font-weight: 600; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+
+    .grid-bg { background-image: linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px); background-size: 48px 48px; }
+    .grid-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, rgba(37, 99, 235, 0.06) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(15, 23, 42, 0.03) 0%, transparent 60%); pointer-events: none; }
+    .geo-circle { position: absolute; border-radius: 50%; border: 2px solid rgba(37, 99, 235, 0.10); pointer-events: none; }
+    .geo-line { position: absolute; height: 2px; background: rgba(37, 99, 235, 0.08); pointer-events: none; transform-origin: left center; }
+
+    /* Sidebar */
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 260px; z-index: 40; background: #fff; border-right: 1px solid #E2E8F0; display: flex; flex-direction: column; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+    .sidebar-header { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid #E2E8F0; }
+    .sidebar-header h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #64748B; }
+    .sidebar-nav { flex: 1; overflow-y: auto; padding: 0.75rem 0; }
+    .sidebar-nav a { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 1.25rem; font-size: 0.875rem; font-weight: 500; color: #475569; text-decoration: none; transition: all 0.2s; border-left: 3px solid transparent; cursor: pointer; }
+    .sidebar-nav a:hover { background: #F1F5F9; color: #0F172A; }
+    .sidebar-nav a.active { color: #2563EB; background: #EFF6FF; border-left-color: #2563EB; }
+    .sidebar-nav .num { width: 22px; height: 22px; border-radius: 6px; background: #F1F5F9; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: #64748B; flex-shrink: 0; transition: all 0.2s; }
+    .sidebar-nav a.active .num { background: #2563EB; color: #fff; }
+    .sidebar-nav .tag { font-size: 0.7rem; padding: 0.125rem 0.375rem; border-radius: 4px; background: #F1F5F9; color: #64748B; margin-left: auto; }
+    .sidebar-nav .loading-dot { width: 6px; height: 6px; border-radius: 50%; background: #CBD5E1; margin-left: auto; }
+    .sidebar-nav a.loaded .loading-dot { background: #2563EB; }
+
+    /* Mobile */
+    .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(248, 249, 252, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); padding: 0.75rem 1rem; }
+    .mobile-header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 100%; }
+    .mobile-title { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.9375rem; color: #0F172A; display:flex; align-items:center; gap:0.5rem; }
+    .mobile-title span { color: #2563EB; }
+    .loading-spinner { width:16px; height:16px; border:2px solid #E2E8F0; border-top-color:#2563EB; border-radius:50%; animation:spin 0.8s linear infinite; display:inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hamburger { display: flex; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: #0F172A; border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .sidebar-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 39; opacity: 0; transition: opacity 0.35s; }
+    .sidebar-backdrop.show { opacity: 1; }
+    .main-wrapper { margin-left: 260px; min-height: 100vh; }
+
+    /* Hero */
+    .hero { min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 2rem 3rem; position: relative; overflow: hidden; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1rem; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 100px; font-size: 0.8125rem; font-weight: 500; color: #2563EB; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2.25rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+    .hero h1 .highlight { color: #2563EB; }
+    .hero-sub { font-size: clamp(1rem, 2.5vw, 1.2rem); color: #475569; max-width: 500px; line-height: 1.7; margin-bottom: 1.5rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; color: #94A3B8; font-size: 0.8125rem; font-weight: 500; }
+    .hero-meta span { display: flex; align-items: center; gap: 0.375rem; }
+    .hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #2563EB; }
+
+    /* Content */
+    .content { max-width: 860px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+    .formula-section { margin-bottom: 3rem; }
+    .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid #E2E8F0; }
+    .section-number { width: 36px; height: 36px; border-radius: 10px; background: #2563EB; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.9375rem; flex-shrink: 0; }
+    .section-header h2 { font-size: 1.35rem; font-weight: 600; color: #0F172A; }
+    .section-intro { font-size: 0.9375rem; color: #475569; margin-bottom: 1.25rem; padding-left: 0.25rem; }
+
+    /* Cards (loaded from fragments) */
+    .formula-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 1rem; padding: 1.5rem 1.75rem; margin-bottom: 1rem; transition: all 0.3s ease; cursor: default; position: relative; }
+    .formula-card:hover { border-color: #93C5FD; box-shadow: 0 4px 20px rgba(37, 99, 235, 0.06); }
+    .formula-card .label { font-size: 0.8125rem; font-weight: 600; color: #2563EB; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .formula-card .label .sub { font-weight: 400; color: #94A3B8; font-size: 0.75rem; }
+    .formula-card .formula { font-size: 1.1rem; line-height: 2; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .formula-card .formula::-webkit-scrollbar { display: none; }
+    .formula-card .note { font-size: 0.8125rem; color: #64748B; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #F1F5F9; }
+    .formula-card .note.warn { color: #D97706; border-top-color: #FEF3C7; }
+    .formula-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.875rem; }
+    .formula-grid .formula-card { margin-bottom: 0; }
+    .relation-table { display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
+    .relation-row { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 1.25rem; background: #FAFBFC; border: 1px solid #E2E8F0; border-radius: 0.75rem; transition: all 0.2s; }
+    .relation-row:hover { background: #F1F5F9; }
+    .relation-row .condition { min-width: 80px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.9375rem; color: #2563EB; }
+    .relation-row .arrow { color: #94A3B8; font-size: 1.125rem; }
+    .relation-row .result { font-size: 0.9375rem; color: #0F172A; }
+    .relation-row .result-detail { font-size: 0.8125rem; color: #64748B; margin-left: auto; }
+
+    /* Loading state */
+    .section-loading { text-align: center; padding: 2rem; color: #94A3B8; font-size: 0.875rem; }
+
+    /* Print FAB */
+    .print-fab { position: fixed; bottom: 2rem; right: 2rem; z-index: 30; width: 52px; height: 52px; border-radius: 50%; background: #0F172A; color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15); transition: all 0.3s; }
+    .print-fab:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37, 99, 235, 0.2); }
+    .print-fab svg { width: 20px; height: 20px; }
+    .content-footer { text-align: center; padding: 2rem 0 0; border-top: 1px solid #E2E8F0; margin-top: 3rem; color: #94A3B8; font-size: 0.8125rem; }
+
+    /* Print */
+    @media print {
+      @page { margin: 1.5cm; size: A4; }
+      *, *::before, *::after { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; box-shadow: none !important; }
+      body { background: #fff; font-size: 10.5pt; color: #000; line-height: 1.5; }
+      .sidebar, .mobile-header, .sidebar-backdrop, .scroll-hint, .print-fab, .section-loading { display: none !important; }
+      .main-wrapper { margin-left: 0 !important; }
+      .hero { min-height: auto; padding: 1.5cm 0 1cm; }
+      .hero h1 { font-size: 24pt; }
+      .hero-sub { font-size: 11pt; color: #333; }
+      .hero-badge, .hero-meta, .geo-circle, .geo-line, .grid-bg::before { display: none; }
+      .content { max-width: 100%; padding: 0; }
+      .formula-section { margin-bottom: 1.5cm; page-break-inside: avoid; }
+      .formula-card { border: 1px solid #ccc; padding: 0.75rem 1rem; margin-bottom: 0.5rem; break-inside: avoid; }
+      .formula-card:hover { border-color: #ccc; box-shadow: none; }
+      .formula-card .formula { font-size: 1rem; }
+      .formula-card .note { color: #555; }
+      .formula-card .note.warn { color: #B45309; }
+      .relation-row { background: #f9f9f9; border: 1px solid #ddd; }
+      .section-header { border-bottom-color: #999; }
+      .formula-grid { display: block; }
+      .formula-grid .formula-card { margin-bottom: 0.5rem; }
+      .content-footer { display: none; }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main-wrapper { margin-left: 0; }
+      .mobile-header { display: block; }
+      .hero { min-height: auto; padding: 5rem 1.25rem 2.5rem; }
+      .content { padding: 1.25rem 1.25rem 3rem; }
+      .formula-section { margin-bottom: 2.5rem; }
+      .formula-card { padding: 1.125rem 1.25rem; }
+      .formula-grid { grid-template-columns: 1fr; }
+      .relation-row { flex-wrap: wrap; gap: 0.375rem; padding: 0.75rem 1rem; }
+      .relation-row .result-detail { margin-left: 0; width: 100%; }
+      .print-fab { bottom: 1.25rem; right: 1.25rem; width: 48px; height: 48px; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.75rem; }
+      .section-header h2 { font-size: 1.125rem; }
+      .section-number { width: 30px; height: 30px; font-size: 0.8125rem; border-radius: 8px; }
+      .formula-card { padding: 1rem 1.125rem; border-radius: 0.75rem; }
+      .formula-card .formula { font-size: 0.95rem; }
+      .relation-row .condition { min-width: 60px; font-size: 0.8125rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== Sidebar ==================== -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="章节导航">
+    <div class="sidebar-header">
+      <h2>直线与圆</h2>
+      <p id="sidebarStatus" style="font-size:0.75rem;color:#94A3B8;margin-top:0.125rem;">加载中...</p>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <a href="#sec1" class="active" data-target="sec1"><span class="num">1</span> 中点坐标<span class="loading-dot"></span></a>
+      <a href="#sec2" data-target="sec2"><span class="num">2</span> 倾斜角与斜率<span class="loading-dot"></span></a>
+      <a href="#sec3" data-target="sec3"><span class="num">3</span> 直线方程 <span class="tag">3式</span><span class="loading-dot"></span></a>
+      <a href="#sec4" data-target="sec4"><span class="num">4</span> 两直线关系<span class="loading-dot"></span></a>
+      <a href="#sec5" data-target="sec5"><span class="num">5</span> 距离公式 <span class="tag">2式</span><span class="loading-dot"></span></a>
+      <a href="#sec6" data-target="sec6"><span class="num">6</span> 圆的方程<span class="loading-dot"></span></a>
+      <a href="#sec7" data-target="sec7"><span class="num">7</span> 直线与圆<span class="loading-dot"></span></a>
+      <a href="#sec8" data-target="sec8"><span class="num">8</span> 圆的切线<span class="loading-dot"></span></a>
+      <a href="#sec9" data-target="sec9" style="border-left-color:#7C3AED;color:#7C3AED;"><span class="num" style="background:#7C3AED;color:#fff;">9</span> 🧠 概念关系<span class="loading-dot"></span></a>
+      <a href="#sec10" data-target="sec10" style="border-left-color:#7C3AED;color:#7C3AED;"><span class="num" style="background:#7C3AED;color:#fff;">10</span> 🎯 常考题型<span class="loading-dot"></span></a>
+    </nav>
+  </aside>
+
+  <!-- ==================== Mobile Header ==================== -->
+  <header class="mobile-header" id="mobileHeader">
+    <div class="mobile-header-inner">
+      <span class="mobile-title"><span class="loading-spinner" id="mobileSpinner"></span>直线与圆<span>·</span>公式</span>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <button onclick="window.print()" style="background:none;border:none;cursor:pointer;padding:6px;color:#64748B;" aria-label="打印">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        </button>
+        <button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="切换菜单" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== Sidebar backdrop ==================== -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+  <!-- ==================== Main ==================== -->
+  <div class="main-wrapper" id="mainWrapper">
+
+    <!-- ===== Hero ===== -->
+    <section class="hero grid-bg" id="top">
+      <div class="geo-circle" style="width:320px;height:320px;top:-60px;right:-40px;"></div>
+      <div class="geo-circle" style="width:200px;height:200px;bottom:10%;left:-60px;"></div>
+      <div class="geo-line" style="width:180px;top:30%;right:15%;transform:rotate(30deg);"></div>
+      <div class="geo-line" style="width:120px;bottom:25%;left:20%;transform:rotate(-20deg);"></div>
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        中职数学 · 高考复习
+      </div>
+      <h1>直线与圆 <span class="highlight">公式要点</span></h1>
+      <p class="hero-sub">核心公式一册速查，涵盖所有必考知识点与常考题型。</p>
+      <div class="hero-meta">
+        <span><span class="dot"></span> 10 组公式分类</span>
+        <span><span class="dot"></span> 直线 + 圆</span>
+        <span><span class="dot"></span> 可打印</span>
+      </div>
+    </section>
+
+    <!-- ===== Content ===== -->
+    <main class="content" id="formulaContent">
+      <!-- Sections are dynamically populated by JS -->
+    </main>
+  </div>
+
+  <!-- Print FAB -->
+  <button class="print-fab" onclick="window.print()" aria-label="打印页面">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
+    </svg>
+  </button>
+
+  <script>
+    // ===== Module Configuration =====
+    const MODULES = [
+      { id: 'sec1', num: 1, title: '中点坐标公式', intro: '已知两点坐标，可求出它们连线的中点坐标——这是一切对称问题的基础。', cards: [
+        'modules/01-中点坐标公式/card01.html',
+        'modules/01-中点坐标公式/card02.html',
+        'modules/01-中点坐标公式/card03.html',
+      ]},
+      { id: 'sec2', num: 2, title: '倾斜角与斜率', intro: '直线的倾斜程度由倾斜角和斜率描述，是学习直线方程的基础。', cards: [
+        'modules/02-倾斜角与斜率/card01.html',
+        'modules/02-倾斜角与斜率/card02.html',
+        'modules/02-倾斜角与斜率/card03.html',
+      ]},
+      { id: 'sec3', num: 3, title: '直线方程', intro: '直线有三种常见的方程形式，每种适用于不同的已知条件。', cards: [
+        'modules/03-直线方程/card01.html',
+        'modules/03-直线方程/card02.html',
+        'modules/03-直线方程/card03.html',
+        'modules/03-直线方程/card04.html',
+      ]},
+      { id: 'sec4', num: 4, title: '两直线位置关系', intro: '设直线 \\(l_1: y = k_1x + b_1\\) 或 \\(l_1: A_1x + B_1y + C_1 = 0\\)。', cards: [
+        'modules/04-两直线位置关系/card01.html',
+        'modules/04-两直线位置关系/card02.html',
+      ]},
+      { id: 'sec5', num: 5, title: '距离公式', intro: '距离计算是解析几何的基本运算，两种距离公式对应不同场景。', cards: [
+        'modules/05-距离公式/card01.html',
+        'modules/05-距离公式/card02.html',
+      ]},
+      { id: 'sec6', num: 6, title: '圆的方程', intro: '圆的标准式直接看出圆心和半径，一般式便于运算，两者可互化。', cards: [
+        'modules/06-圆的方程/card01.html',
+        'modules/06-圆的方程/card02.html',
+        'modules/06-圆的方程/card03.html',
+      ]},
+      { id: 'sec7', num: 7, title: '直线与圆的位置关系', intro: '判断直线与圆的位置关系，核心是比较圆心到直线的距离 d 与半径 r 的大小。', cards: [
+        'modules/07-直线与圆位置关系/card01.html',
+        'modules/07-直线与圆位置关系/card02.html',
+      ]},
+      { id: 'sec8', num: 8, title: '圆的切线', intro: '求圆的切线方程是常考题型，关键在于切点与圆心连线垂直于切线，以及圆心到切点的距离等于半径，即 \\(d = r\\)。', cards: [
+        'modules/08-圆的切线/card01.html',
+        'modules/08-圆的切线/card02.html',
+        'modules/08-圆的切线/card03.html',
+      ]},
+      { id: 'sec9', num: 9, title: '关键词·概念关系', intro: '直线与圆的核心概念关联网络——理清概念间的推导关系，建立知识体系。', cards: [
+        'modules/09-关键词/card01.html',
+      ]},
+      { id: 'sec10', num: 10, title: '考点·常考题型', intro: '福建中职学考「直线与圆」各模块常见考题——掌握每类题型的考法和公式。', cards: [
+        'modules/10-考点/card01.html',
+      ]},
+    ];
+
+    const contentContainer = document.getElementById('formulaContent');
+    let loadedCount = 0;
+    const totalModules = MODULES.length;
+
+    // ===== Create section placeholders =====
+    MODULES.forEach(mod => {
+      const section = document.createElement('section');
+      section.className = 'formula-section';
+      section.id = mod.id;
+      section.innerHTML = `
+        <div class="section-header">
+          <div class="section-number">${mod.num}</div>
+          <h2>${mod.title}</h2>
+        </div>
+        <p class="section-intro">${mod.intro}</p>
+        <div class="section-cards" id="cards-${mod.id}">
+          <div class="section-loading"><span class="loading-spinner"></span> 加载中...</div>
+        </div>
+      `;
+      contentContainer.appendChild(section);
+    });
+
+    // Also add footer
+    const footer = document.createElement('footer');
+    footer.className = 'content-footer';
+    footer.innerHTML = '<p>中职数学 · 直线与圆 公式要点 · 可打印参考</p>';
+    contentContainer.appendChild(footer);
+
+    // ===== Load cards sequentially =====
+    async function loadAllCards() {
+      for (const mod of MODULES) {
+        const cardsContainer = document.getElementById(`cards-${mod.id}`);
+        const navLink = document.querySelector(`.sidebar-nav a[data-target="${mod.id}"]`);
+        let hasError = false;
+
+        for (const url of mod.cards) {
+          try {
+            const resp = await fetch(url);
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const html = await resp.text();
+            // Insert card
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            cardsContainer.appendChild(temp.firstElementChild || temp);
+          } catch (e) {
+            hasError = true;
+            console.warn(`加载失败: ${url}`, e);
+            const errCard = document.createElement('div');
+            errCard.className = 'formula-card';
+            errCard.innerHTML = `<div class="note warn">⚠ 加载失败: ${url}</div>`;
+            cardsContainer.appendChild(errCard);
+          }
+        }
+
+        // Remove loading indicator
+        const loadingEl = cardsContainer.querySelector('.section-loading');
+        if (loadingEl) loadingEl.remove();
+
+        // Re-render KaTeX
+        if (window.renderMathInElement) {
+          try {
+            renderMathInElement(cardsContainer, {
+              delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true },
+              ],
+              throwOnError: false,
+              errorColor: '#D97706',
+            });
+          } catch(e) { /* KaTeX error - silently ignore */ }
+        }
+
+        // Update sidebar indicator
+        loadedCount++;
+        if (navLink) navLink.classList.add('loaded');
+        document.getElementById('sidebarStatus').textContent = `${loadedCount} / ${totalModules} 模块已加载`;
+      }
+
+      // Update spinner
+      const spinner = document.getElementById('mobileSpinner');
+      if (spinner) spinner.style.display = 'none';
+      document.getElementById('sidebarStatus').textContent = `${totalModules} 组公式分类`;
+    }
+
+    // ===== Sidebar functions =====
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const hamburger = document.getElementById('hamburger');
+      if (window.innerWidth <= 900) {
+        const isOpen = sidebar.style.display === 'flex';
+        sidebar.style.display = isOpen ? 'none' : 'flex';
+        backdrop.style.display = isOpen ? 'none' : 'block';
+        if (!isOpen) requestAnimationFrame(() => backdrop.classList.add('show'));
+        else backdrop.classList.remove('show');
+        hamburger.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', !isOpen);
+      }
+    }
+
+    function handleResize() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const hamburger = document.getElementById('hamburger');
+      if (window.innerWidth > 900) {
+        sidebar.style.display = 'flex';
+        backdrop.style.display = 'none';
+        backdrop.classList.remove('show');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      } else if (!sidebar.classList.contains('show')) {
+        sidebar.style.display = 'none';
+      }
+    }
+    window.addEventListener('resize', handleResize);
+
+    // ===== Scroll tracking =====
+    function updateActiveSection() {
+      const sections = document.querySelectorAll('.formula-section');
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      let currentId = 'sec1';
+      sections.forEach(s => {
+        const rect = s.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.35) currentId = s.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('data-target') === currentId);
+      });
+    }
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+
+    // ===== Sidebar click closes mobile menu =====
+    document.querySelectorAll('.sidebar-nav a').forEach(link => {
+      link.addEventListener('click', () => { if (window.innerWidth <= 900) toggleSidebar(); });
+    });
+
+    // ===== Init =====
+    function initKaTeX() {
+      if (typeof renderMathInElement === 'undefined') {
+        setTimeout(initKaTeX, 200);
+        return;
+      }
+      // Render hero section if needed
+      loadAllCards();
+    }
+
+    // Wait for KaTeX auto-render to load
+    if (typeof renderMathInElement !== 'undefined') {
+      loadAllCards();
+    } else {
+      // The KaTeX auto-render script has onload=initKaTeX but we handle it manually
+      const checkKatex = setInterval(() => {
+        if (typeof renderMathInElement !== 'undefined') {
+          clearInterval(checkKatex);
+          loadAllCards();
+        }
+      }, 100);
+      // Safety timeout
+      setTimeout(() => clearInterval(checkKatex), 10000);
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && window.innerWidth <= 900) {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar.style.display === 'flex') toggleSidebar();
+      }
+    });
+
+    handleResize();
+    updateActiveSection();
+  </script>
+</body>
+</html>

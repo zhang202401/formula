@@ -1,0 +1,67 @@
+<div class="formula-card">
+            <div class="label">过圆上一点 <span class="sub">— 切点（未知）在某条直线上</span></div>
+            <div style="font-size:0.9375rem;color:#0F172A;line-height:1.8;">
+              <p><strong>题目：</strong>圆 \(x^2 + y^2 - 4x + 2y - 20 = 0\)，切点 P 在直线 \(y = x\) 上，求过 P 的圆的切线方程。</p>
+
+              <p style="margin-top:0.75rem;"><strong>解：</strong></p>
+              <p><strong>① 将圆化为标准式：</strong></p>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                (x - 2)^2 + (y + 1)^2 = 25
+                \]
+              </div>
+              <p>圆心 \(C(2, -1)\)，半径 \(r = 5\)。</p>
+
+              <p style="margin-top:0.5rem;"><strong>② 求切点 P 坐标：</strong></p>
+              <p>设切点 \(P(t, t)\)（切点在直线 y=x 上），代入圆方程：</p>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                (t - 2)^2 + (t + 1)^2 = 25
+                \]
+              </div>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                t^2 - 4t + 4 + t^2 + 2t + 1 = 25 \;\Longrightarrow\; 2t^2 - 2t - 20 = 0
+                \]
+              </div>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                t^2 - t - 10 = 0 \;\Longrightarrow\; (t - 5)(t + 4) = 0
+                \]
+              </div>
+              <p>所以 \(t = 5\) 或 \(t = -4\)，即两个切点：</p>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                P_1(5, 5),\quad P_2(-4, -4)
+                \]
+              </div>
+
+              <p style="margin-top:0.5rem;"><strong>③ 对 \(P_1(5, 5)\)，求切线：</strong></p>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                k_{CP_1} = \frac{5 - (-1)}{5 - 2} = \frac{6}{3} = 2
+                \]
+              </div>
+              <p>\(k_{l_1} = -\dfrac{1}{2}\)，由点斜式：</p>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                y - 5 = -\frac{1}{2}(x - 5) \;\Longrightarrow\; x + 2y - 15 = 0
+                \]
+              </div>
+
+              <p style="margin-top:0.5rem;"><strong>④ 对 \(P_2(-4, -4)\)，求切线：</strong></p>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                k_{CP_2} = \frac{-4 - (-1)}{-4 - 2} = \frac{-3}{-6} = \frac{1}{2}
+                \]
+              </div>
+              <p>\(k_{l_2} = -2\)，由点斜式：</p>
+              <div class="formula" style="margin:0.25rem 0;">
+                \[
+                y + 4 = -2(x + 4) \;\Longrightarrow\; 2x + y + 12 = 0
+                \]
+              </div>
+
+              <p style="margin-top:0.5rem;"><strong>答：</strong>两条切线方程为 \(x + 2y - 15 = 0\) 和 \(2x + y + 12 = 0\)。</p>
+            </div>
+          </div>

@@ -1,0 +1,109 @@
+<div class="formula-card" style="margin-top:1rem;padding:2rem 1.5rem;">
+          <div class="label">🧠 思维导图 <span class="sub">— 两直线位置关系判断流程</span></div>
+          <style>
+            .mindmap { display:flex; flex-direction:column; align-items:center; gap:0; padding:1rem 0 0; }
+            .mm-node { padding:0.5rem 1.25rem; border-radius:0.75rem; font-weight:600; font-size:0.9375rem; text-align:center; position:relative; z-index:2; }
+            .mm-line { width:2px; height:1.5rem; background:#CBD5E1; flex-shrink:0; }
+            .mm-branch { display:flex; gap:2.5rem; justify-content:center; flex-wrap:wrap; margin-top:0; }
+            .mm-branch-col { display:flex; flex-direction:column; align-items:center; gap:0; min-width:160px; }
+            .mm-vline { width:2px; height:1.25rem; background:#CBD5E1; flex-shrink:0; }
+            .mm-hline-row { display:flex; align-items:center; gap:0; width:100%; justify-content:center; margin:0.25rem 0; }
+            .mm-hline { height:2px; background:#CBD5E1; flex:1; min-width:1rem; }
+            .mm-leaf-group { display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; margin-top:0.25rem; }
+            .mm-leaf { display:flex; flex-direction:column; align-items:center; gap:0.25rem; }
+            .mm-leaf-label { font-size:0.75rem; color:#94A3B8; white-space:nowrap; }
+            .mm-leaf-box { padding:0.375rem 1.125rem; border-radius:0.625rem; font-weight:600; font-size:0.875rem; white-space:nowrap; border-width:2px; border-style:solid; box-shadow:0 1px 4px rgba(0,0,0,0.04); }
+            .mm-formula { font-size:0.8rem; color:#64748B; font-weight:400; margin-top:0.125rem; font-family:'DM Sans',sans-serif; }
+            @media (max-width:600px) {
+              .mm-branch { gap:1.25rem; flex-direction:column; align-items:center; }
+              .mm-branch-col { min-width:120px; }
+              .mm-leaf-group { gap:1rem; }
+              .mm-leaf-box { font-size:0.8125rem; padding:0.3rem 0.875rem; }
+            }
+          </style>
+          <div class="mindmap">
+
+            <!-- ===== 根节点：判断 k ===== -->
+            <div class="mm-node" style="background:#EFF6FF;border:2px solid #2563EB;color:#1D4ED8;">
+              判断两直线斜率 k
+            </div>
+
+            <div class="mm-line"></div>
+
+            <!-- ===== 二分叉 ===== -->
+            <div class="mm-branch">
+
+              <!-- ===== 左分支：k 相等 ===== -->
+              <div class="mm-branch-col">
+                <div class="mm-node" style="background:#F8FAFC;border:1.5px solid #94A3B8;color:#475569;font-size:0.875rem;padding:0.375rem 1.25rem;">
+                  k₁ = k₂
+                </div>
+                <div class="mm-vline"></div>
+                <div class="mm-node" style="background:#F8FAFC;border:1.5px solid #94A3B8;color:#475569;font-size:0.875rem;padding:0.375rem 1.25rem;">
+                  判断截距 b
+                </div>
+
+                <div class="mm-hline-row">
+                  <div class="mm-hline"></div>
+                  <div class="mm-hline"></div>
+                </div>
+
+                <div class="mm-leaf-group">
+                  <div class="mm-leaf">
+                    <div class="mm-leaf-label">b₁ = b₂</div>
+                    <div class="mm-leaf-box" style="background:#F0FDF4;border-color:#86EFAC;color:#16A34A;">
+                      重合
+                    </div>
+                    <div class="mm-formula">\(\dfrac{A_1}{A_2} = \dfrac{B_1}{B_2} = \dfrac{C_1}{C_2}\)</div>
+                  </div>
+                  <div class="mm-leaf">
+                    <div class="mm-leaf-label">b₁ ≠ b₂</div>
+                    <div class="mm-leaf-box" style="background:#FEF2F2;border-color:#FCA5A5;color:#DC2626;">
+                      平行
+                    </div>
+                    <div class="mm-formula">\(A_1B_2 = A_2B_1\) 且 \(B_1C_2 \neq B_2C_1\)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ===== 右分支：k 不相等 ===== -->
+              <div class="mm-branch-col">
+                <div class="mm-node" style="background:#F8FAFC;border:1.5px solid #94A3B8;color:#475569;font-size:0.875rem;padding:0.375rem 1.25rem;">
+                  k₁ ≠ k₂
+                </div>
+                <div class="mm-vline"></div>
+                <div class="mm-node" style="background:#FFF7ED;border:2px solid #FDBA74;color:#EA580C;font-size:0.9375rem;">
+                  相交
+                </div>
+                <div class="mm-vline"></div>
+                <div class="mm-node" style="background:#F8FAFC;border:1.5px solid #94A3B8;color:#475569;font-size:0.875rem;padding:0.375rem 1.25rem;">
+                  判断 k₁·k₂
+                </div>
+
+                <div class="mm-hline-row">
+                  <div class="mm-hline"></div>
+                  <div class="mm-hline"></div>
+                </div>
+
+                <div class="mm-leaf-group">
+                  <div class="mm-leaf">
+                    <div class="mm-leaf-label">k₁·k₂ = −1</div>
+                    <div class="mm-leaf-box" style="background:#EFF6FF;border-color:#93C5FD;color:#2563EB;">
+                      垂直相交
+                    </div>
+                    <div class="mm-formula">\(A_1A_2 + B_1B_2 = 0\)</div>
+                  </div>
+                  <div class="mm-leaf">
+                    <div class="mm-leaf-label">k₁·k₂ ≠ −1</div>
+                    <div class="mm-leaf-box" style="background:#FAFAFA;border-color:#D4D4D8;color:#52525B;">
+                      相交不垂直
+                    </div>
+                    <div class="mm-formula">斜交，有唯一交点</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
